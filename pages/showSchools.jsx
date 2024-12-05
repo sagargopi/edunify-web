@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from '../styles/showSchools.module.css';
+import Link from 'next/link'; // Import the Link component
 
 export default function ShowSchools() {
   const [schools, setSchools] = useState([]);
@@ -22,20 +23,36 @@ export default function ShowSchools() {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>Schools List</h1>
-      <div className={styles.grid}>
-        {schools.map((school) => (
-          <div key={school.id} className={styles.card}>
-            <img
-              src={school.image ? `/uploads/${school.image}` : '/default-image.jpg'}
-              alt={school.name}
-              className={styles.image}
-            />
-            <h2 className={styles.name}>{school.name}</h2>
-            <p className={styles.address}>{school.address}</p>
-            <p className={styles.city}>{school.city}</p>
-          </div>
-        ))}
-      </div>
+      {/* Home Button */}
+      <Link href="/">
+        <button className={styles.homeButton}>Home</button>
+      </Link>
+      <table className={styles.table}>
+        <thead>
+          <tr>
+            <th>School Name</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Image</th>
+          </tr>
+        </thead>
+        <tbody>
+          {schools.map((school) => (
+            <tr key={school.id}>
+              <td>{school.name}</td>
+              <td>{school.address}</td>
+              <td>{school.city}</td>
+              <td>
+                <img
+                  src={school.image ? `/uploads/${school.image}` : '/default-image.jpg'}
+                  alt={school.name}
+                  className={styles.image}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

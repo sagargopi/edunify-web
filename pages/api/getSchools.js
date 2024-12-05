@@ -2,10 +2,10 @@ import mysql from 'mysql2';
 
 // MySQL connection setup
 const db = mysql.createConnection({
-  host: '127.0.0.1',
-  user: 'root',
-  password: 'admin',
-  database: 'edunify',
+  host: '127.0.0.1',  // MySQL host
+  user: 'root',       // MySQL user
+  password: 'admin',  // MySQL password
+  database: 'edunify',// Database name
 });
 
 db.connect((err) => {
@@ -18,6 +18,7 @@ db.connect((err) => {
 
 export default function handler(req, res) {
   if (req.method === 'GET') {
+    // SQL query to fetch all schools
     const query = 'SELECT * FROM schools';
 
     db.query(query, (err, results) => {
@@ -27,7 +28,14 @@ export default function handler(req, res) {
       }
 
       console.log('Fetched schools:', results);
-      res.status(200).json({ schools: results });
+      
+      // Add an image URL prefix for the school image path
+      const schoolsWithImagePath = results.map((school) => ({
+        ...school,
+        image: school.image ? `/uploads/${school.image}` : '/default-image.jpg', // Fallback image if not available
+      }));
+
+      res.status(200).json({ schools: schoolsWithImagePath });
     });
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });

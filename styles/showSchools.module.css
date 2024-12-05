@@ -1,47 +1,67 @@
+/* showSchools.module.css */
+
 .container {
   padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .heading {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 2rem;
-  color: #333;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
-.card {
+.table th,
+.table td {
+  padding: 12px;
+  text-align: left;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.table tr:hover {
+  background-color: #f9f9f9;
 }
 
 .image {
-  width: 100%;
-  height: 200px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
+  border-radius: 8px;
 }
 
-.name {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin: 10px;
-}
+@media screen and (max-width: 768px) {
+  .table {
+    font-size: 14px;
+  }
 
-.address,
-.city {
-  margin: 5px 10px;
-  color: #555;
+  .image {
+    width: 60px;
+    height: 60px;
+  }
+  .homeButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  .homeButton:hover {
+    background-color: #45a049;
+  }
 }
