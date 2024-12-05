@@ -1,36 +1,36 @@
-import mysql from 'mysql2/promise';
+import mysql from 'mysql2';
 
-// Create a MySQL connection pool for better performance
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || 'admin',
-  database: process.env.DB_NAME || 'edunify',
+// MySQL connection setup using environment variables
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,        // Use DB_HOST for host
+  user: process.env.DB_USER,        // Use DB_USER for user
+  password: process.env.DB_PASSWORD, // Use DB_PASSWORD for password
+  database: process.env.DB_NAME,    // Use DB_NAME for database name
 });
 
-export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { name, email, address } = req.body;
-
-    // Validate input fields
-    if (!name || !email || !address) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    try {
-      // Insert data into the schools table
-      const query = 'INSERT INTO schools (name, email, address) VALUES (?, ?, ?)';
-      const [results] = await pool.query(query, [name, email, address]);
-
-      return res.status(200).json({
-        message: 'School added successfully',
-        schoolId: results.insertId, // Return the ID of the inserted row
-      });
-    } catch (error) {
-      console.error('Error inserting school:', error);
-      return res.status(500).json({ message: 'Failed to add school' });
-    }
+// Connect to MySQL
+db.connect((err) => {
+  if (err) {
+    console.error('Database connection error:', err.message);
   } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    console.log('Connected to MySQL');
+  }
+});
+
+export default function handler(req, res) {
+  if (req.method === 'GET') {
+    const query = 'SELECT * FROM schools';
+
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('Error fetching schools:', err.message);
+        return res.status(500).json({ error: 'Failed to fetch schools', details: err.message });
+      }
+
+      console.log('Fetched schools:', results);
+      res.status(200).json({ schools: results });
+    });
+  } else {
+    res.status(405).json({ error: 'Method Not Allowed' });
   }
 }
