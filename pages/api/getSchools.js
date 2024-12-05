@@ -2,12 +2,11 @@ import mysql from 'mysql2';
 
 // MySQL connection setup
 const db = mysql.createConnection({
-  host: '127.0.0.1',  // MySQL host
-  user: 'root',       // MySQL user
-  password: 'admin',  // MySQL password
-  database: 'edunify',// Database name
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
-
 db.connect((err) => {
   if (err) {
     console.error('Database connection error:', err.message);
