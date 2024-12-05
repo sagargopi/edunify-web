@@ -1,0 +1,57 @@
+/* styles/addSchool.module.css */
+.formContainer {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  .heading {
+    text-align: center;
+    color: #333;
+  }
+  
+  .formGroup {
+    margin-bottom: 15px;
+  }
+  
+  .label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .submitButton, .showSchoolsButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .submitButton:hover, .showSchoolsButton:hover {
+    background-color: #45a049;
+  }
+  
+  .imagePreview {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .previewImage {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 10px;
+  }
+  
